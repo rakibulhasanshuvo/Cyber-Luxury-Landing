@@ -50,7 +50,9 @@ export default function Contact() {
               hello@designer.com
             </a>
             <a
-              href="#"
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 rounded-xl bg-white/5 border border-border-glass text-text-primary font-bold flex items-center gap-3 hover:bg-white/10 hover:border-accent-2 transition-all hover:translate-y-[-2px] group"
             >
               <Share2 className="w-5 h-5 text-accent-2 group-hover:scale-110 transition-transform" />
