@@ -6,10 +6,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { icon: Twitter, href: "#", name: "Twitter" },
-    { icon: Linkedin, href: "#", name: "LinkedIn" },
-    { icon: Dribbble, href: "#", name: "Dribbble" },
-    { icon: Github, href: "#", name: "GitHub" },
+    { icon: Twitter, href: "https://twitter.com", name: "Twitter" },
+    { icon: Linkedin, href: "https://linkedin.com", name: "LinkedIn" },
+    { icon: Dribbble, href: "https://dribbble.com", name: "Dribbble" },
+    { icon: Github, href: "https://github.com", name: "GitHub" },
   ];
 
   return (
@@ -39,6 +39,8 @@ export default function Footer() {
               <a
                 key={social.name}
                 href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border border-border-subtle flex items-center justify-center text-text-muted hover:text-white hover:bg-white/5 hover:border-accent-1 transition-all group/social"
                 aria-label={social.name}
               >
