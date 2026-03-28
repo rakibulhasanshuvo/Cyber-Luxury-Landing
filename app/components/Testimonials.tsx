@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import Image from "next/image";
 
-const testimonials = [
+export const testimonials = [
   {
     name: "Sarah Chen",
     role: "VP Product, TechCorp",
