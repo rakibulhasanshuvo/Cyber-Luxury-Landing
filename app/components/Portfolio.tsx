@@ -76,11 +76,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           style={{ x: project.drift > 0 ? xShift : -xShift, y: yShift }} 
           className="absolute inset-[-10%] w-[120%] h-[120%] z-0"
         >
+          {/* ⚡ Bolt: Removed unoptimized={true} to allow Next.js automatic image optimization (WebP/AVIF generation and proper sizing) */}
           <Image
             src={project.image}
             alt={project.title}
             fill
-            unoptimized={true}
             className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 group-hover:brightness-110"
             sizes="(max-width: 768px) 100vw, 60vw"
           />
