@@ -49,11 +49,11 @@ export default function About() {
             <div className="absolute -inset-1 bg-linear-to-tr from-accent-1 via-accent-2 to-accent-3 rounded-[2.5rem] blur-sm opacity-20 group-hover:opacity-40 transition-opacity duration-1000" />
             
             <div className="relative rounded-[2.5rem] overflow-hidden glass-card border-white/10 group-hover:border-white/20 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.6)] aspect-[4/5] bg-bg-card z-0">
+              {/* ⚡ Bolt: Removed unoptimized={true} to allow Next.js automatic image optimization (WebP/AVIF generation and proper sizing) */}
               <Image
                 src="/images/portrait.png"
                 alt="Portrait"
                 fill
-                unoptimized={true}
                 className="object-cover group-hover:brightness-110 transition-all duration-1000 scale-105 group-hover:scale-100"
                 sizes="(max-width: 768px) 100vw, 45vw"
                 priority
