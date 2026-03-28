@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, Briefcase, MapPin, Award, Figma, Cpu, Box, Terminal, Sparkles } from "lucide-react";
+import { Calendar, Briefcase, MapPin, Award, Figma, Cpu, Box, Terminal  } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const experiences = [

@@ -35,7 +35,8 @@ export default function Home() {
       {/* Back to Top */}
       <a
         href="#"
-        className="fixed bottom-8 right-8 w-12 h-12 bg-accent-1/10 border border-border-subtle backdrop-blur-md rounded-full flex items-center justify-center text-accent-1 hover:bg-accent-1 hover:text-white transition-all shadow-xl z-50 group hover:translate-y-[-4px]"
+        aria-label="Back to top"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-accent-1/10 border border-border-subtle backdrop-blur-md rounded-full flex items-center justify-center text-accent-1 hover:bg-accent-1 hover:text-white transition-all shadow-xl z-50 group hover:translate-y-[-4px] focus-visible:ring-2 focus-visible:ring-accent-1 focus-visible:outline-none"
         id="back-to-top"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-y-[-2px] transition-transform"><path d="m18 15-6-6-6 6"/></svg>

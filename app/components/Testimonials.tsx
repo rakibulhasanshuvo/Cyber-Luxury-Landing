@@ -65,7 +65,7 @@ export default function Testimonials() {
             viewport={{ once: true }}
             className="max-w-xl mx-auto text-lg text-text-secondary leading-relaxed"
           >
-            Hear from the people I've had the privilege of working with.
+            Hear from the people I&apos;ve had the privilege of working with.
           </motion.p>
         </div>
 
@@ -87,7 +87,7 @@ export default function Testimonials() {
                 </div>
                 
                 <p className="text-lg font-medium text-text-secondary leading-relaxed italic relative">
-                  <span className="text-5xl font-serif text-accent-2 opacity-10 absolute -top-8 -left-6">"</span>
+                  <span className="text-5xl font-serif text-accent-2 opacity-10 absolute -top-8 -left-6">&quot;</span>
                   {testimonial.feedback}
                 </p>
               </div>
