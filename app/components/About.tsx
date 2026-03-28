@@ -113,7 +113,7 @@ export default function About() {
               <p className="text-xl text-text-secondary leading-relaxed font-medium mb-12">
                 I specialize in crafting immersive digital experiences that leverage 
                 data-driven insights and forward-thinking aesthetics. Every project 
-                is an opportunity to push the boundaries of what's possible on the web.
+                is an opportunity to push the boundaries of what&apos;s possible on the web.
               </p>
             </motion.div>
             

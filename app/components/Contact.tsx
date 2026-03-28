@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Share2, Send, Linkedin, Twitter, Dribbble } from "lucide-react";
+import { Mail, Share2, Send } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -18,7 +18,7 @@ export default function Contact() {
           >
             <div className="w-8 h-px bg-linear-to-r from-accent-1 to-accent-3" />
             <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-accent-2">
-              Let's Connect
+              Let&apos;s Connect
             </span>
             <div className="w-8 h-px bg-linear-to-l from-accent-1 to-accent-3" />
           </motion.div>
@@ -38,7 +38,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="max-w-xl mx-auto text-lg text-text-secondary font-medium mb-12"
           >
-            I'm currently taking on new projects.
+            I&apos;m currently taking on new projects.
           </motion.p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-20">

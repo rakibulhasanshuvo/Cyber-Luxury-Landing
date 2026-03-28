@@ -67,7 +67,9 @@ export default function Navbar() {
           </a>
 
           <button
-            className="md:hidden w-11 h-11 flex items-center justify-center rounded-md bg-white/5 border border-border-subtle hover:border-accent-1/50 transition-all text-text-primary"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+            className="md:hidden w-11 h-11 flex items-center justify-center rounded-md bg-white/5 border border-border-subtle hover:border-accent-1/50 transition-all text-text-primary focus-visible:ring-2 focus-visible:ring-accent-1 focus-visible:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
