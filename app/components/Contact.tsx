@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Share2, Send, Linkedin, Twitter, Dribbble } from "lucide-react";
+import { Mail, Share2, Send } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -75,6 +75,8 @@ export default function Contact() {
                   <input
                     id="name"
                     type="text"
+                    required
+                    maxLength={100}
                     placeholder="John Doe"
                     className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder-text-muted focus:border-accent-1/50 focus:bg-white/10 focus:outline-none transition-all"
                   />
@@ -84,6 +86,8 @@ export default function Contact() {
                   <input
                     id="email"
                     type="email"
+                    required
+                    maxLength={254}
                     placeholder="john@example.com"
                     className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder-text-muted focus:border-accent-1/50 focus:bg-white/10 focus:outline-none transition-all"
                   />
@@ -95,6 +99,8 @@ export default function Contact() {
                 <textarea
                   id="message"
                   rows={4}
+                  required
+                  maxLength={1000}
                   placeholder="Tell me about your project..."
                   className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white placeholder-text-muted focus:border-accent-1/50 focus:bg-white/10 focus:outline-none transition-all resize-none"
                 />
