@@ -5,3 +5,7 @@
 ## 2025-05-15 - Unnecessary Array Spreading in Render
 **Learning:** Found repeated array spreading `[...companies, ...companies, ...companies, ...companies]` inside the `Marquee` component's render loop. This causes unnecessary allocations and spread operations on every render.
 **Action:** Extracted the repeated array into a constant `MARQUEE_COMPANIES` outside the component. This optimization improved micro-benchmark performance by ~22% by reducing GC pressure and execution time.
+
+## 2026-04-04 - Un-throttled Scroll Event Listeners
+**Learning:** Scroll event listeners can fire at very high frequencies, causing excessive React state updates and reconciliation during scrolls. Using `requestAnimationFrame` to throttle these updates to the browser's refresh rate and adding `{ passive: true }` to the event listener improves scrolling performance and reduces CPU overhead.
+**Action:** Always throttle high-frequency events like `scroll`, `resize`, or `mousemove` using `requestAnimationFrame` or a debounce/throttle function, and use passive listeners where possible.

@@ -10,11 +10,30 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+    let frameId: number;
+
+    // Optimization: Throttled scroll listener using requestAnimationFrame to ensure
+    // state updates happen at most once per frame (~60fps), reducing React reconciliation
+    // frequency during rapid scrolls.
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (!ticking) {
+        frameId = window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Use passive: true to let the browser know we won't call preventDefault(),
+    // allowing it to optimize scrolling performance.
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
   }, []);
 
   const navLinks = [
