@@ -7,21 +7,32 @@ import React from "react";
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    h2: ({ children, ...props }: any) => <h2 {...props}>{children}</h2>,
-    p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
+    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
+      <div {...props}>{children}</div>
+    ),
+    h2: ({ children, ...props }: React.ComponentPropsWithoutRef<"h2">) => (
+      <h2 {...props}>{children}</h2>
+    ),
+    p: ({ children, ...props }: React.ComponentPropsWithoutRef<"p">) => (
+      <p {...props}>{children}</p>
+    ),
   },
 }));
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
-  Star: (props: any) => <div data-testid="star-icon" {...props} />,
+  Star: (props: React.ComponentPropsWithoutRef<"div">) => (
+    <div data-testid="star-icon" {...props} />
+  ),
 }));
 
 // Mock next/image to avoid optimization-related issues
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: any) => <img {...props} />,
+  default: (props: React.ComponentPropsWithoutRef<"img">) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img {...props} />
+  ),
 }));
 
 describe("Testimonials Component Rendering", () => {
