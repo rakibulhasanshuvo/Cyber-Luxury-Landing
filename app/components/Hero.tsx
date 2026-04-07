@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Download, Star } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
-const stats = [
+export const stats = [
   { label: "Projects Done", target: 120, suffix: "+" },
   { label: "Years Exp", target: 10, suffix: "+" },
   { label: "Global Awards", target: 45, suffix: "" },
@@ -36,7 +36,7 @@ const itemVariants: Variants = {
   },
 };
 
-function Counter({ target, suffix }: { target: number; suffix: string }) {
+export function Counter({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
   const nodeRef = useRef<HTMLSpanElement>(null);
   const [isInView, setIsInView] = useState(false);
