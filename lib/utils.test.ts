@@ -33,4 +33,19 @@ describe("cn utility", () => {
   it("should return an empty string when no arguments are provided", () => {
     expect(cn()).toBe("");
   });
+
+  it("should handle arbitrary values correctly", () => {
+    expect(cn("w-[10px]", "w-[20px]")).toBe("w-[20px]");
+    expect(cn("text-[#123456]", "text-[#654321]")).toBe("text-[#654321]");
+  });
+
+  it("should handle pseudo-class modifiers correctly", () => {
+    expect(cn("hover:text-red-500", "hover:text-blue-500")).toBe("hover:text-blue-500");
+    expect(cn("focus:px-2", "focus:p-4")).toBe("focus:p-4");
+  });
+
+  it("should handle empty objects and arrays gracefully", () => {
+    expect(cn({}, [])).toBe("");
+    expect(cn("text-red-500", {}, [], [""])).toBe("text-red-500");
+  });
 });
