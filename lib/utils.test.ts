@@ -33,4 +33,41 @@ describe("cn utility", () => {
   it("should return an empty string when no arguments are provided", () => {
     expect(cn()).toBe("");
   });
+
+  it("should handle numbers as class names", () => {
+    expect(cn(1, 2, "p-4")).toBe("1 2 p-4");
+    expect(cn({ "1": true, "2": false })).toBe("1");
+  });
+
+  it("should ignore bigints as they are not supported by clsx", () => {
+    // @ts-expect-error - BigInts are in the typedef but ignored by clsx implementation
+    expect(cn(1n, 2n, "p-4")).toBe("p-4");
+  });
+
+  it("should handle deeply nested arrays", () => {
+    expect(cn(["text-red-500", [["bg-blue-500"], [["font-bold"]]]])).toBe(
+      "text-red-500 bg-blue-500 font-bold"
+    );
+  });
+
+  it("should handle objects with truthy/falsy values including functions", () => {
+    // Functions are truthy in JS, so clsx includes the key
+    expect(
+      cn({
+        "text-red-500": () => true,
+        "bg-blue-500": () => false,
+      } as any)
+    ).toBe("text-red-500 bg-blue-500");
+  });
+
+  it("should ignore boolean arguments directly, but apply them as string keys when in an object", () => {
+    // direct boolean arguments are ignored
+    expect(cn(true, false, "p-4")).toBe("p-4");
+    // in an object, true resolves to 'true' string key
+    expect(cn({ "true": true, "false": false })).toBe("true");
+  });
+
+  it("should ignore functions passed as direct arguments", () => {
+    expect(cn((() => "hello") as any, "p-4")).toBe("p-4");
+  });
 });
