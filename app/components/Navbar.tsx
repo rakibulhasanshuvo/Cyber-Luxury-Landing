@@ -5,26 +5,41 @@ import { Menu, X, Code } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+// Lightweight custom throttle function using requestAnimationFrame
+// to ensure the callback runs at most once per animation frame (~60fps).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function throttle<T extends (...args: any[]) => void>(fn: T) {
+  let frameId: number | null = null;
+
+  const throttled = (...args: Parameters<T>) => {
+    if (frameId === null) {
+      frameId = window.requestAnimationFrame(() => {
+        fn(...args);
+        frameId = null;
+      });
+    }
+  };
+
+  throttled.cancel = () => {
+    if (frameId !== null) {
+      window.cancelAnimationFrame(frameId);
+      frameId = null;
+    }
+  };
+
+  return throttled;
+}
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-    let frameId: number;
-
-    // Optimization: Throttled scroll listener using requestAnimationFrame to ensure
-    // state updates happen at most once per frame (~60fps), reducing React reconciliation
-    // frequency during rapid scrolls.
-    const handleScroll = () => {
-      if (!ticking) {
-        frameId = window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+    // Optimization: Throttled scroll listener using the custom throttle function.
+    // This reduces React reconciliation frequency during rapid scrolls.
+    const handleScroll = throttle(() => {
+      setIsScrolled(window.scrollY > 50);
+    });
 
     // Use passive: true to let the browser know we won't call preventDefault(),
     // allowing it to optimize scrolling performance.
@@ -32,7 +47,7 @@ export default function Navbar() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (frameId) window.cancelAnimationFrame(frameId);
+      handleScroll.cancel();
     };
   }, []);
 
