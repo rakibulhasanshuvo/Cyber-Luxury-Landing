@@ -32,22 +32,22 @@ vi.mock("framer-motion", () => {
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
-  Star: ({ ...props }: ComponentPropsWithoutRef<"div"> & { fill?: unknown }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fill, ...rest } = props;
-    return <div data-testid="star-icon" {...rest} />;
-  },
+  Star: (props: React.ComponentPropsWithoutRef<"svg">) => (
+    <svg data-testid="star-icon" {...props} />
+  ),
 }));
+
+/**
+ * @vitest-environment happy-dom
+ */
 
 // Mock next/image to avoid optimization-related issues
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: ({ ...props }: ComponentPropsWithoutRef<"img"> & { fill?: unknown }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fill, ...rest } = props;
+  default: (props: React.ComponentPropsWithoutRef<"img">) => (
     // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    return <img {...rest} />;
-  },
+    <img {...props} />
+  ),
 }));
 
 describe("Testimonials Component Rendering", () => {
