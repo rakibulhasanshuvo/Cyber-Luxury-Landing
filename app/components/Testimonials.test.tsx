@@ -21,16 +21,16 @@ vi.mock("framer-motion", () => ({
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
-  Star: (props: React.ComponentPropsWithoutRef<"div">) => (
-    <div data-testid="star-icon" {...props} />
+  Star: (props: React.ComponentPropsWithoutRef<"svg">) => (
+    <svg data-testid="star-icon" {...props} />
   ),
 }));
 
 // Mock next/image to avoid optimization-related issues
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: React.ComponentPropsWithoutRef<"img">) => (
-    // eslint-disable-next-line @next/next/no-img-element
+  default: ({ fill, ...props }: React.ComponentPropsWithoutRef<"img"> & { fill?: boolean }) => (
+    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
     <img {...props} />
   ),
 }));
