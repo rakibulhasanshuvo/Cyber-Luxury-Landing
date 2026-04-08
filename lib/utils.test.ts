@@ -33,4 +33,20 @@ describe("cn utility", () => {
   it("should return an empty string when no arguments are provided", () => {
     expect(cn()).toBe("");
   });
+
+  it("should handle numbers", () => {
+    expect(cn(1, 2, 3)).toBe("1 2 3");
+  });
+
+  it("should handle deeply nested arrays", () => {
+    expect(cn([[[["text-red-500", [["bg-blue-500"]]]]]])).toBe("text-red-500 bg-blue-500");
+  });
+
+  it("should handle functions", () => {
+    // clsx ignores standalone functions but evaluates them as truthy in objects
+    const fn = () => "test";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect(cn(fn as any)).toBe("");
+    expect(cn({ "bg-red-500": fn })).toBe("bg-red-500");
+  });
 });
