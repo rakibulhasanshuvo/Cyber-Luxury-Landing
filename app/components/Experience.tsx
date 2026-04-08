@@ -4,7 +4,27 @@ import { motion } from "framer-motion";
 import { Calendar, Briefcase, MapPin, Award, Figma, Cpu, Box, Terminal  } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const experiences = [
+type ExperienceTag =
+  | "Product Strategy"
+  | "Design Systems"
+  | "Team Lead"
+  | "UX Engineering"
+  | "Data Viz"
+  | "Animation"
+  | "Visual Design"
+  | "Branding"
+  | "Campaigns";
+
+interface ExperienceItem {
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  desc: string;
+  tags: ExperienceTag[];
+}
+
+const experiences: ExperienceItem[] = [
   {
     company: "Aether Systems",
     role: "Senior Product Designer",

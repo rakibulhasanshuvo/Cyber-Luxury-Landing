@@ -6,9 +6,18 @@ import Image from "next/image";
 import { Github, ExternalLink, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+type ProjectTag =
+  | "React"
+  | "Next.js"
+  | "TypeScript"
+  | "Python"
+  | "React Native"
+  | "GraphQL"
+  | "Shopify API";
+
 interface Project {
   title: string;
-  tags: string[];
+  tags: ProjectTag[];
   desc: string;
   image: string;
   link: string;
