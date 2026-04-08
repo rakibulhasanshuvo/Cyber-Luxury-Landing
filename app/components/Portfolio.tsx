@@ -117,6 +117,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="flex items-center gap-5 mt-4">
           <a
             href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 rounded-2xl bg-white/5 border border-white/5 text-white text-sm font-bold flex items-center gap-3 hover:bg-white/10 hover:border-accent-1/30 hover:scale-105 transition-all"
           >
             <Github className="w-5 h-5 text-accent-1" />
@@ -124,6 +126,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </a>
           <a
             href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 rounded-2xl bg-linear-to-br from-accent-1/20 to-accent-3/20 border border-accent-1/30 text-white text-sm font-bold flex items-center gap-3 hover:from-accent-1/30 hover:to-accent-3/30 hover:border-accent-1/50 hover:scale-105 transition-all"
           >
             <ExternalLink className="w-5 h-5 text-accent-3" />
