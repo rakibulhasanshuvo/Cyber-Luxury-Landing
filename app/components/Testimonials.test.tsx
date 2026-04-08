@@ -1,23 +1,34 @@
+/**
+ * @vitest-environment jsdom
+ */
 import { render, screen } from "@testing-library/react";
 import { testimonials } from "./Testimonials";
 import Testimonials from "./Testimonials";
 import { describe, test, expect, vi } from "vitest";
-import React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 // Mock framer-motion to avoid animation-related issues during testing
-vi.mock("framer-motion", () => ({
-  motion: {
-    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
-      <div {...props}>{children}</div>
-    ),
-    h2: ({ children, ...props }: React.ComponentPropsWithoutRef<"h2">) => (
-      <h2 {...props}>{children}</h2>
-    ),
-    p: ({ children, ...props }: React.ComponentPropsWithoutRef<"p">) => (
-      <p {...props}>{children}</p>
-    ),
-  },
-}));
+vi.mock("framer-motion", () => {
+  return {
+    motion: {
+      div: ({ children, ...props }: ComponentPropsWithoutRef<"div"> & { initial?: unknown; animate?: unknown; transition?: unknown; whileInView?: unknown; viewport?: unknown }) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { initial, animate, transition, whileInView, viewport, ...rest } = props;
+        return <div {...rest}>{children}</div>;
+      },
+      h2: ({ children, ...props }: ComponentPropsWithoutRef<"h2"> & { initial?: unknown; animate?: unknown; transition?: unknown; whileInView?: unknown; viewport?: unknown }) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { initial, animate, transition, whileInView, viewport, ...rest } = props;
+        return <h2 {...rest}>{children}</h2>;
+      },
+      p: ({ children, ...props }: ComponentPropsWithoutRef<"p"> & { initial?: unknown; animate?: unknown; transition?: unknown; whileInView?: unknown; viewport?: unknown }) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { initial, animate, transition, whileInView, viewport, ...rest } = props;
+        return <p {...rest}>{children}</p>;
+      },
+    },
+  };
+});
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
