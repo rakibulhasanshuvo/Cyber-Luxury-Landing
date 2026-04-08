@@ -3,7 +3,7 @@
 import { Chrome, CreditCard, Car, Figma, Slack, ShoppingBag, Zap, Database } from "lucide-react";
 import { motion } from "framer-motion";
 
-const companies = [
+export const companies = [
   { name: "Google", icon: Chrome },
   { name: "Stripe", icon: CreditCard },
   { name: "Uber", icon: Car },
