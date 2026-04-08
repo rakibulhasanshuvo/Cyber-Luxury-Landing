@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment jsdom
+ */
 import { render, screen } from "@testing-library/react";
 import { testimonials } from "./Testimonials";
 import Testimonials from "./Testimonials";
@@ -49,13 +52,14 @@ vi.mock("next/image", () => ({
 
 describe("Testimonials Component Rendering", () => {
   test("renders the section heading", () => {
-    render(<Testimonials />);
+    const { unmount } = render(<Testimonials />);
     expect(screen.getByText("What Clients Say")).toBeDefined();
     expect(screen.getByText("Feedback")).toBeDefined();
+    unmount();
   });
 
   test("renders all testimonials with their details", () => {
-    render(<Testimonials />);
+    const { unmount } = render(<Testimonials />);
 
     testimonials.forEach(testimonial => {
       // Check for name, role, and feedback text
@@ -64,17 +68,21 @@ describe("Testimonials Component Rendering", () => {
       expect(screen.getAllByText(testimonial.feedback).length).toBeGreaterThan(0);
 
       // Check for the avatar image
-      const avatar = screen.getByAltText(testimonial.name);
+      const avatar = screen.getAllByAltText(testimonial.name)[0];
       expect(avatar).toBeDefined();
     });
+
+    unmount();
   });
 
   test("renders the correct number of stars for each testimonial", () => {
-    render(<Testimonials />);
+    const { unmount } = render(<Testimonials />);
 
     // Total stars should equal the sum of stars in the testimonials array
     const totalStarsExpected = testimonials.reduce((acc, t) => acc + t.stars, 0);
     const starIcons = screen.getAllByTestId("star-icon");
     expect(starIcons.length).toBe(totalStarsExpected);
+
+    unmount();
   });
 });
