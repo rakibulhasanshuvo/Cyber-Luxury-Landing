@@ -81,7 +81,8 @@ export default function Testimonials() {
             >
               <div className="flex flex-col gap-6">
                 <div className="flex gap-1.5">
-                  {[...Array(testimonial.stars)].map((_, j) => (
+                  {/* PERFORMANCE: Array.from with a mapping function is faster than array spreading for small iteration lengths */}
+                  {Array.from({ length: testimonial.stars }, (_, j) => (
                     <Star key={j} className="w-4.5 h-4.5 fill-yellow-400 text-yellow-400 shadow-yellow-400/50" />
                   ))}
                 </div>
