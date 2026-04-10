@@ -6,9 +6,18 @@ import Image from "next/image";
 import { Github, ExternalLink, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+export type PortfolioTag =
+  | "React"
+  | "Next.js"
+  | "TypeScript"
+  | "Python"
+  | "React Native"
+  | "GraphQL"
+  | "Shopify API";
+
 interface Project {
   title: string;
-  tags: string[];
+  tags: PortfolioTag[];
   desc: string;
   image: string;
   link: string;
