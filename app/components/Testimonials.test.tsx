@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { render, screen } from "@testing-library/react";
-import { testimonials } from "./Testimonials";
+import { testimonials } from "./Testimonials.data";
 import Testimonials from "./Testimonials";
 import { describe, test, expect, vi } from "vitest";
 import type { ComponentPropsWithoutRef } from "react";
