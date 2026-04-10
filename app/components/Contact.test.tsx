@@ -7,26 +7,21 @@ import React from "react";
 
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => {
-  // We need to filter out motion specific props to avoid React warnings
-  const filterProps = (props: any) => {
-    const {
-      whileInView, initial, viewport, animate, exit, transition,
-      variants, whileHover, whileTap, whileDrag, whileFocus,
-      ...rest
-    } = props;
-    return rest;
-  };
+  type MotionProps = { whileInView?: unknown, initial?: unknown, viewport?: unknown, animate?: unknown, exit?: unknown, transition?: unknown, variants?: unknown, whileHover?: unknown, whileTap?: unknown, whileDrag?: unknown, whileFocus?: unknown };
 
   return {
     motion: {
-      div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
-        <div {...filterProps(props)}>{children}</div>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      div: ({ children, whileInView, initial, viewport, animate, exit, transition, variants, whileHover, whileTap, whileDrag, whileFocus, ...props }: React.ComponentPropsWithoutRef<"div"> & MotionProps) => (
+        <div {...props}>{children}</div>
       ),
-      h2: ({ children, ...props }: React.ComponentPropsWithoutRef<"h2">) => (
-        <h2 {...filterProps(props)}>{children}</h2>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      h2: ({ children, whileInView, initial, viewport, animate, exit, transition, variants, whileHover, whileTap, whileDrag, whileFocus, ...props }: React.ComponentPropsWithoutRef<"h2"> & MotionProps) => (
+        <h2 {...props}>{children}</h2>
       ),
-      p: ({ children, ...props }: React.ComponentPropsWithoutRef<"p">) => (
-        <p {...filterProps(props)}>{children}</p>
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      p: ({ children, whileInView, initial, viewport, animate, exit, transition, variants, whileHover, whileTap, whileDrag, whileFocus, ...props }: React.ComponentPropsWithoutRef<"p"> & MotionProps) => (
+        <p {...props}>{children}</p>
       ),
     },
   };

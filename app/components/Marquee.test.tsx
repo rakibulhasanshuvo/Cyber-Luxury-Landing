@@ -1,15 +1,17 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import Marquee, { companies } from "./Marquee";
-import { describe, test, expect, vi } from "vitest";
+import { describe, test, expect, vi, afterEach } from "vitest";
 import React from "react";
 
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => ({
   motion: {
-    span: ({ children, ...props }: React.ComponentPropsWithoutRef<"span">) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    span: ({ children, whileInView, initial, viewport, animate, transition, ...props }: React.ComponentPropsWithoutRef<"span"> & { whileInView?: unknown, initial?: unknown, viewport?: unknown, animate?: unknown, transition?: unknown }) => (
       <span {...props}>{children}</span>
     ),
-    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    div: ({ children, whileInView, initial, viewport, animate, transition, ...props }: React.ComponentPropsWithoutRef<"div"> & { whileInView?: unknown, initial?: unknown, viewport?: unknown, animate?: unknown, transition?: unknown }) => (
       <div {...props}>{children}</div>
     ),
   },
@@ -28,6 +30,8 @@ vi.mock("lucide-react", () => ({
 }));
 
 describe("Marquee Component", () => {
+  afterEach(cleanup);
+
   test("renders the 'Powering innovation at' text", () => {
     render(<Marquee />);
     expect(screen.getByText(/Powering innovation at/i)).toBeDefined();
