@@ -108,9 +108,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </p>
         </div>
 
-        {(project.github || project.link) && (
+        {((project.github && project.github !== "#") || (project.link && project.link !== "#")) && (
           <div className="flex items-center gap-5 mt-4">
-            {project.github && (
+            {project.github && project.github !== "#" && (
               <a
                 href={project.github}
                 target="_blank"
@@ -121,7 +121,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 Codebase
               </a>
             )}
-            {project.link && (
+            {project.link && project.link !== "#" && (
               <a
                 href={project.link}
                 target="_blank"
