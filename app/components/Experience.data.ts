@@ -1,13 +1,24 @@
 import { Figma, Cpu, Box, Terminal } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+export type ExperienceTag =
+  | "Product Strategy"
+  | "Design Systems"
+  | "Team Lead"
+  | "UX Engineering"
+  | "Data Viz"
+  | "Animation"
+  | "Visual Design"
+  | "Branding"
+  | "Campaigns";
+
 export interface ExperienceData {
   company: string;
   role: string;
   period: string;
   location: string;
   desc: string;
-  tags: string[];
+  tags: ExperienceTag[];
 }
 
 export interface TechStackData {
