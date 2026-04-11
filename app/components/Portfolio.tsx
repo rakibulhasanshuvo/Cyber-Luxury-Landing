@@ -6,13 +6,22 @@ import Image from "next/image";
 import { Github, ExternalLink, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+export type PortfolioTag =
+  | "React"
+  | "Next.js"
+  | "TypeScript"
+  | "Python"
+  | "React Native"
+  | "GraphQL"
+  | "Shopify API";
+
 interface Project {
   title: string;
-  tags: string[];
+  tags: PortfolioTag[];
   desc: string;
   image: string;
-  link: string;
-  github: string;
+  link?: string;
+  github?: string;
   drift: number;
   reverse?: boolean;
 }
@@ -23,8 +32,6 @@ const projects: Project[] = [
     tags: ["React", "Next.js", "TypeScript", "Python"],
     desc: "A comprehensive suite of tools for data scientists and ML engineers to build and deploy models at scale with real-time telemetry.",
     image: "/images/deep-learning.png",
-    link: "#",
-    github: "#",
     drift: 0.03,
   },
   {
@@ -32,8 +39,6 @@ const projects: Project[] = [
     tags: ["React Native", "TypeScript", "GraphQL"],
     desc: "A cross-platform mobile application designed to simplify personal finance with automated budgeting and predictive spending insights.",
     image: "/images/finance-app.png",
-    link: "#",
-    github: "#",
     drift: -0.025,
     reverse: true,
   },
@@ -42,8 +47,6 @@ const projects: Project[] = [
     tags: ["Next.js", "TypeScript", "Shopify API"],
     desc: "A high-performance headless commerce engine with server-side rendering, dynamic inventory, and a lightning-fast checkout flow.",
     image: "/images/ecommerce.png",
-    link: "#",
-    github: "#",
     drift: 0.02,
   },
 ];
@@ -115,24 +118,28 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </div>
 
         <div className="flex items-center gap-5 mt-4">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 rounded-2xl bg-white/5 border border-white/5 text-white text-sm font-bold flex items-center gap-3 hover:bg-white/10 hover:border-accent-1/30 hover:scale-105 transition-all"
-          >
-            <Github className="w-5 h-5 text-accent-1" />
-            Codebase
-          </a>
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-4 rounded-2xl bg-linear-to-br from-accent-1/20 to-accent-3/20 border border-accent-1/30 text-white text-sm font-bold flex items-center gap-3 hover:from-accent-1/30 hover:to-accent-3/30 hover:border-accent-1/50 hover:scale-105 transition-all"
-          >
-            <ExternalLink className="w-5 h-5 text-accent-3" />
-            Live Preview
-          </a>
+          {project.github && project.github !== "#" && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-2xl bg-white/5 border border-white/5 text-white text-sm font-bold flex items-center gap-3 hover:bg-white/10 hover:border-accent-1/30 hover:scale-105 transition-all"
+            >
+              <Github className="w-5 h-5 text-accent-1" />
+              Codebase
+            </a>
+          )}
+          {project.link && project.link !== "#" && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 rounded-2xl bg-linear-to-br from-accent-1/20 to-accent-3/20 border border-accent-1/30 text-white text-sm font-bold flex items-center gap-3 hover:from-accent-1/30 hover:to-accent-3/30 hover:border-accent-1/50 hover:scale-105 transition-all"
+            >
+              <ExternalLink className="w-5 h-5 text-accent-3" />
+              Live Preview
+            </a>
+          )}
         </div>
       </div>
     </motion.div>

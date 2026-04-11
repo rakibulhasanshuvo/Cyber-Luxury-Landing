@@ -13,3 +13,7 @@
 ## 2026-04-07 - Unnecessary Array Creation for Iteration
 **Learning:** Using `[...Array(length)]` for iteration creates a temporary array and spreads it, which is less efficient than `Array.from({ length })`.
 **Action:** Replaced `[...Array(n)]` with `Array.from({ length: n }, mappingFn)` for rendering star ratings. This optimization improved micro-benchmark performance by ~4.5x, reducing CPU time and memory allocation by avoiding intermediate array creation and a second iteration pass.
+
+## 2024-05-18 - Next.js Image Component Performance Optimization
+**Learning:** When using `<Image fill />` for smaller container elements like avatars, Next.js defaults the `sizes` prop to `100vw`. This causes it to download image variations meant for the full width of the screen, which wastes memory and bandwidth.
+**Action:** Explicitly set the `sizes` prop (e.g., `sizes="56px"`) based on the image container's actual size to optimize image downloads.
