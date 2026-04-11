@@ -70,7 +70,7 @@ export default function Contact() {
         >
           <div className="absolute inset-0 bg-linear-to-br from-accent-1/5 via-transparent to-accent-3/5" />
           <div className="relative z-10">
-            <form className="flex flex-col gap-8">
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="flex flex-col gap-3">
                   <label htmlFor="name" className="text-xs font-black uppercase tracking-widest text-text-muted">Full Name</label>
