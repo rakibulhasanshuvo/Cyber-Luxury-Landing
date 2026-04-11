@@ -12,7 +12,9 @@ vi.mock("framer-motion", () => {
   const filterProps = (props: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       whileInView, initial, viewport, animate, exit, transition,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       variants, whileHover, whileTap, whileDrag, whileFocus,
       ...rest
     } = props;
