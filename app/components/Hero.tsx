@@ -79,11 +79,20 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   return <span ref={nodeRef}>{count}{suffix}</span>;
 }
 
+const SCROLL_ANIMATION_CONFIG = {
+  inputRange: [0, 800],
+  outputRanges: {
+    y1: [0, 200],
+    y2: [0, 150],
+    y3: [0, 100],
+  },
+};
+
 export default function Hero() {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 800], [0, 200]);
-  const y2 = useTransform(scrollY, [0, 800], [0, 150]);
-  const y3 = useTransform(scrollY, [0, 800], [0, 100]);
+  const y1 = useTransform(scrollY, SCROLL_ANIMATION_CONFIG.inputRange, SCROLL_ANIMATION_CONFIG.outputRanges.y1);
+  const y2 = useTransform(scrollY, SCROLL_ANIMATION_CONFIG.inputRange, SCROLL_ANIMATION_CONFIG.outputRanges.y2);
+  const y3 = useTransform(scrollY, SCROLL_ANIMATION_CONFIG.inputRange, SCROLL_ANIMATION_CONFIG.outputRanges.y3);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-24 overflow-hidden">

@@ -8,7 +8,9 @@ import React from "react";
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => {
   // We need to filter out motion specific props to avoid React warnings
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filterProps = (props: any) => {
+
     const {
       whileInView, initial, viewport, animate, exit, transition,
       variants, whileHover, whileTap, whileDrag, whileFocus,

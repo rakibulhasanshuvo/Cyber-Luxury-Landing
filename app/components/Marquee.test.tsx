@@ -4,16 +4,25 @@ import { describe, test, expect, vi } from "vitest";
 import React from "react";
 
 // Mock framer-motion to avoid animation-related issues during testing
-vi.mock("framer-motion", () => ({
-  motion: {
-    span: ({ children, ...props }: React.ComponentPropsWithoutRef<"span">) => (
-      <span {...props}>{children}</span>
-    ),
-    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
-      <div {...props}>{children}</div>
-    ),
-  },
-}));
+vi.mock("framer-motion", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const filterProps = (props: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { whileInView, initial, transition, ...rest } = props;
+    return rest;
+  };
+
+  return {
+    motion: {
+      span: ({ children, ...props }: React.ComponentPropsWithoutRef<"span">) => (
+        <span {...filterProps(props)}>{children}</span>
+      ),
+      div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
+        <div {...filterProps(props)}>{children}</div>
+      ),
+    },
+  };
+});
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
