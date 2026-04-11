@@ -3,30 +3,7 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import Image from "next/image";
-
-export const testimonials = [
-  {
-    name: "Sarah Chen",
-    role: "VP Product, TechCorp",
-    avatar: "https://i.pravatar.cc/150?img=11",
-    feedback: "Exceptional designer who truly understands the intersection of aesthetics and usability. Our conversion rates increased by 40% after the redesign.",
-    stars: 5,
-  },
-  {
-    name: "Marcus Rivera",
-    role: "CTO, FinanceFlow",
-    avatar: "https://i.pravatar.cc/150?img=32",
-    feedback: "Working with this designer was a game-changer for our startup. The attention to detail and speed of delivery was remarkable. Highly recommended!",
-    stars: 5,
-  },
-  {
-    name: "Emily Park",
-    role: "Design Lead, Nexus",
-    avatar: "https://i.pravatar.cc/150?img=47",
-    feedback: "A rare talent who combines pixel-perfect craft with strategic thinking. Delivered our complete design system on time and it's been adopted across teams.",
-    stars: 5,
-  },
-];
+import { testimonials } from "./Testimonials.data";
 
 export default function Testimonials() {
   return (
@@ -100,6 +77,7 @@ export default function Testimonials() {
                     src={testimonial.avatar}
                     alt={testimonial.name}
                     fill
+                    sizes="56px"
                     className="rounded-full border-2 border-border-subtle transition-all duration-300 relative group-hover:border-accent-2 z-10 object-cover"
                   />
                 </div>

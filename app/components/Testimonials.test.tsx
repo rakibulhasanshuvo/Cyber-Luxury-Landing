@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 import { render, screen } from "@testing-library/react";
-import { testimonials } from "./Testimonials";
+import { testimonials } from "./Testimonials.data";
 import Testimonials from "./Testimonials";
 import { describe, test, expect, vi } from "vitest";
 import type { ComponentPropsWithoutRef } from "react";
@@ -44,9 +44,9 @@ vi.mock("lucide-react", () => ({
 // Mock next/image to avoid optimization-related issues
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: React.ComponentPropsWithoutRef<"img">) => (
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    <img {...props} />
+  default: ({ fill, alt, ...props }: React.ComponentPropsWithoutRef<"img"> & { fill?: boolean }) => (
+    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text, @typescript-eslint/no-unused-vars
+    <img alt={alt || 'Image'} {...props} />
   ),
 }));
 
