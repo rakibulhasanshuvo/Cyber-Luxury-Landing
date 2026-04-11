@@ -1,17 +1,26 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import Marquee, { companies } from "./Marquee";
-import { describe, test, expect, vi } from "vitest";
+import { describe, test, expect, vi, afterEach } from "vitest";
 import React from "react";
+
+// Cleanup DOM after each test
+afterEach(() => {
+  cleanup();
+});
 
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => ({
   motion: {
-    span: ({ children, ...props }: React.ComponentPropsWithoutRef<"span">) => (
-      <span {...props}>{children}</span>
-    ),
-    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
-      <div {...props}>{children}</div>
-    ),
+    span: ({ children, ...props }: React.ComponentPropsWithoutRef<"span"> & { initial?: unknown; whileInView?: unknown; viewport?: unknown; animate?: unknown; transition?: unknown }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { initial, whileInView, viewport, animate, transition, ...rest } = props;
+      return <span {...rest}>{children}</span>;
+    },
+    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div"> & { initial?: unknown; whileInView?: unknown; viewport?: unknown; animate?: unknown; transition?: unknown }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { initial, whileInView, viewport, animate, transition, ...rest } = props;
+      return <div {...rest}>{children}</div>;
+    },
   },
 }));
 
