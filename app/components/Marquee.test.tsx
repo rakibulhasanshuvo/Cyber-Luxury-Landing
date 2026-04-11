@@ -1,7 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import Marquee, { companies } from "./Marquee";
-import { describe, test, expect, vi } from "vitest";
+import { describe, test, expect, vi, afterEach } from "vitest";
 import React from "react";
+
+// Cleanup DOM after each test
+afterEach(() => {
+  cleanup();
+});
 
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => {
