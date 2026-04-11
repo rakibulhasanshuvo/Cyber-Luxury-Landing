@@ -44,10 +44,15 @@ vi.mock("lucide-react", () => ({
 // Mock next/image to avoid optimization-related issues
 vi.mock("next/image", () => ({
   __esModule: true,
-  default: (props: React.ComponentPropsWithoutRef<"img">) => (
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    <img {...props} />
-  ),
+  default: ({ fill, sizes, ...props }: React.ComponentPropsWithoutRef<"img"> & { fill?: boolean; sizes?: string }) => {
+    // We intentionally discard fill and sizes so they aren't written to the DOM
+    void fill;
+    void sizes;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+      <img {...props} />
+    );
+  },
 }));
 
 describe("Testimonials Component Rendering", () => {

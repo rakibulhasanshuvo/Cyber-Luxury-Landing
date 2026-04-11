@@ -28,6 +28,57 @@ export const testimonials = [
   },
 ];
 
+import React from "react";
+
+const TestimonialCard = React.memo(function TestimonialCard({
+  testimonial,
+  index
+}: {
+  testimonial: typeof testimonials[0];
+  index: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className="p-10 rounded-3xl bg-bg-card border border-border-subtle backdrop-blur-xl group hover:border-accent-1/40 hover:bg-bg-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between"
+    >
+      <div className="flex flex-col gap-6">
+        <div className="flex gap-1.5">
+          {/* PERFORMANCE: Array.from with a mapping function is faster than array spreading for small iteration lengths */}
+          {Array.from({ length: testimonial.stars }, (_, j) => (
+            <Star key={j} className="w-4.5 h-4.5 fill-yellow-400 text-yellow-400 shadow-yellow-400/50" />
+          ))}
+        </div>
+
+        <p className="text-lg font-medium text-text-secondary leading-relaxed italic relative">
+          <span className="text-5xl font-serif text-accent-2 opacity-10 absolute -top-8 -left-6">&quot;</span>
+          {testimonial.feedback}
+        </p>
+      </div>
+
+      <div className="mt-12 flex items-center gap-5 border-t border-border-subtle pt-8 group-hover:border-accent-1/20 transition-colors">
+        <div className="relative w-14 h-14">
+          <div className="absolute inset-0 bg-accent-1 blur-md rounded-full scale-0 group-hover:scale-110 transition-transform opacity-30" />
+          <Image
+            src={testimonial.avatar}
+            alt={testimonial.name}
+            fill
+            sizes="56px"
+            className="rounded-full border-2 border-border-subtle transition-all duration-300 relative group-hover:border-accent-2 z-10 object-cover"
+          />
+        </div>
+        <div>
+          <div className="text-white font-bold text-lg">{testimonial.name}</div>
+          <div className="text-sm font-medium text-text-muted">{testimonial.role}</div>
+        </div>
+      </div>
+    </motion.div>
+  );
+});
+
 export default function Testimonials() {
   return (
     <section id="testimonials" className="py-32 relative">
@@ -71,44 +122,11 @@ export default function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-10 rounded-3xl bg-bg-card border border-border-subtle backdrop-blur-xl group hover:border-accent-1/40 hover:bg-bg-card-hover transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between"
-            >
-              <div className="flex flex-col gap-6">
-                <div className="flex gap-1.5">
-                  {/* PERFORMANCE: Array.from with a mapping function is faster than array spreading for small iteration lengths */}
-                  {Array.from({ length: testimonial.stars }, (_, j) => (
-                    <Star key={j} className="w-4.5 h-4.5 fill-yellow-400 text-yellow-400 shadow-yellow-400/50" />
-                  ))}
-                </div>
-                
-                <p className="text-lg font-medium text-text-secondary leading-relaxed italic relative">
-                  <span className="text-5xl font-serif text-accent-2 opacity-10 absolute -top-8 -left-6">&quot;</span>
-                  {testimonial.feedback}
-                </p>
-              </div>
-
-              <div className="mt-12 flex items-center gap-5 border-t border-border-subtle pt-8 group-hover:border-accent-1/20 transition-colors">
-                <div className="relative w-14 h-14">
-                  <div className="absolute inset-0 bg-accent-1 blur-md rounded-full scale-0 group-hover:scale-110 transition-transform opacity-30" />
-                  <Image
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    fill
-                    className="rounded-full border-2 border-border-subtle transition-all duration-300 relative group-hover:border-accent-2 z-10 object-cover"
-                  />
-                </div>
-                <div>
-                  <div className="text-white font-bold text-lg">{testimonial.name}</div>
-                  <div className="text-sm font-medium text-text-muted">{testimonial.role}</div>
-                </div>
-              </div>
-            </motion.div>
+            <TestimonialCard
+              key={testimonial.name}
+              testimonial={testimonial}
+              index={i}
+            />
           ))}
         </div>
       </div>
