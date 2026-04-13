@@ -1,9 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Share2, Send } from "lucide-react";
+import { Mail, Share2, Send, CheckCircle2 } from "lucide-react";
+import { useState } from "react";
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate a network request
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+
+    // Reset form after a few seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
+      const form = e.target as HTMLFormElement;
+      form.reset();
+    }, 3000);
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-accent-1/5 blur-[150px] rounded-full pointer-events-none" />
@@ -70,7 +92,7 @@ export default function Contact() {
         >
           <div className="absolute inset-0 bg-linear-to-br from-accent-1/5 via-transparent to-accent-3/5" />
           <div className="relative z-10">
-            <form className="flex flex-col gap-8">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="flex flex-col gap-3">
                   <label htmlFor="name" className="text-xs font-black uppercase tracking-widest text-text-muted">Full Name</label>
@@ -110,10 +132,26 @@ export default function Contact() {
               
               <button
                 type="submit"
-                className="w-full py-5 bg-linear-to-r from-accent-1 to-accent-4 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-accent-1/20 hover:shadow-accent-1/40 hover:bg-accent-1 mt-4 transition-all flex items-center justify-center gap-3 group/submit"
+                disabled={isSubmitting || isSubmitted}
+                className={`w-full py-5 bg-linear-to-r from-accent-1 to-accent-4 text-white font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3 group/submit ${
+                  isSubmitting || isSubmitted
+                    ? "opacity-80 cursor-not-allowed shadow-none"
+                    : "shadow-accent-1/20 hover:shadow-accent-1/40 hover:bg-accent-1"
+                }`}
               >
-                Send Inquiry
-                <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                {isSubmitting ? (
+                  "Sending..."
+                ) : isSubmitted ? (
+                  <>
+                    Message Sent!
+                    <CheckCircle2 className="w-5 h-5" />
+                  </>
+                ) : (
+                  <>
+                    Send Inquiry
+                    <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </>
+                )}
               </button>
             </form>
           </div>
