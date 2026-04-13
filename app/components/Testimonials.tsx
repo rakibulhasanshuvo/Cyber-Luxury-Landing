@@ -72,7 +72,7 @@ export default function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, i) => (
             <motion.div
-              key={i}
+              key={testimonial.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -83,7 +83,7 @@ export default function Testimonials() {
                 <div className="flex gap-1.5">
                   {/* PERFORMANCE: Array.from with a mapping function is faster than array spreading for small iteration lengths */}
                   {Array.from({ length: testimonial.stars }, (_, j) => (
-                    <Star key={j} className="w-4.5 h-4.5 fill-yellow-400 text-yellow-400 shadow-yellow-400/50" />
+                    <Star key={`star-${j}`} className="w-4.5 h-4.5 fill-yellow-400 text-yellow-400 shadow-yellow-400/50" />
                   ))}
                 </div>
                 

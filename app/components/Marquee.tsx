@@ -46,7 +46,7 @@ export default function Marquee() {
           {/* Quadruple content for ultra-seamless loop on large screens */}
           {MARQUEE_COMPANIES.map((company, i) => (
             <div
-              key={i}
+              key={`${company.name}-${i}`}
               className="flex items-center gap-5 px-14 sm:px-20 text-text-muted hover:text-white transition-all duration-500 group/item cursor-pointer"
             >
               <div className="p-3 rounded-xl bg-white/0 group-hover/item:bg-white/5 transition-colors border border-transparent group-hover/item:border-white/10">

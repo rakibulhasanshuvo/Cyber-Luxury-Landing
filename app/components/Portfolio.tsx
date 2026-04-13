@@ -185,7 +185,7 @@ export default function Portfolio() {
 
         <div className="flex flex-col gap-48">
           {projects.map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} />
+            <ProjectCard key={project.title} project={project} index={i} />
           ))}
         </div>
       </div>

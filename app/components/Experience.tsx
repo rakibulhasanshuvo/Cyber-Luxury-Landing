@@ -62,8 +62,8 @@ export default function Experience() {
                 transition={{ delay: 0.2 }}
                 className="grid grid-cols-2 gap-4"
               >
-                {techStack.map((tech, i) => (
-                  <TechStackItem key={i} tech={tech} />
+                {techStack.map((tech) => (
+                  <TechStackItem key={tech.name} tech={tech} />
                 ))}
               </motion.div>
 
@@ -91,7 +91,7 @@ export default function Experience() {
           {/* Right Column: Experience Timeline */}
           <div className="w-full lg:w-[60%] flex flex-col gap-10">
             {experiences.map((exp, i) => (
-              <ExperienceItem key={i} exp={exp} index={i} />
+              <ExperienceItem key={exp.company} exp={exp} index={i} />
             ))}
           </div>
 

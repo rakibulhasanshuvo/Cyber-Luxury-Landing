@@ -159,9 +159,9 @@ export default function Hero() {
           variants={itemVariants}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 max-w-5xl mx-auto"
         >
-          {stats.map((stat, i) => (
+          {stats.map((stat) => (
             <motion.div
-              key={i}
+              key={stat.label}
               whileHover={{ y: -10, scale: 1.02 }}
               className="p-8 sm:p-10 glass-card group relative overflow-hidden h-full flex flex-col items-center justify-center text-center"
             >
