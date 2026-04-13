@@ -17,7 +17,7 @@ interface Project {
   reverse?: boolean;
 }
 
-const projects: Project[] = [
+export const projects: Project[] = [
   {
     title: "Deep Learning Platform",
     tags: ["React", "Next.js", "TypeScript", "Python"],
