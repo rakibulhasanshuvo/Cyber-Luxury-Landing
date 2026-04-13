@@ -1,23 +1,23 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 import InteractiveWrapper from "./InteractiveWrapper";
-import React from "react";
+import type { ComponentPropsWithoutRef, ReactNode, CSSProperties } from "react";
 
 // Mock framer-motion
 vi.mock("framer-motion", () => {
   return {
     motion: {
-      div: ({ children, style, className, ...props }: React.ComponentPropsWithoutRef<"div">) => {
+      div: ({ children, style, className, ...props }: ComponentPropsWithoutRef<"div">) => {
         // JSDOM sometimes adds "px" to certain numerical style properties like scaleX if passed inline.
         // Or in general, the testing env. Let's just pass it through exactly.
         return (
-          <div data-testid="motion-div" style={style as React.CSSProperties} className={className} {...props}>
+          <div data-testid="motion-div" style={style as CSSProperties} className={className} {...props}>
             {children}
           </div>
         );
       },
     },
-    AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    AnimatePresence: ({ children }: { children: ReactNode }) => <>{children}</>,
     useScroll: vi.fn(() => ({ scrollYProgress: 0.75 })),
   };
 });

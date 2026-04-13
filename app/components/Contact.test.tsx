@@ -1,16 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import Contact from "./Contact";
 import { describe, test, expect, vi } from "vitest";
+import type { ComponentPropsWithoutRef } from "react";
 
 // @vitest-environment jsdom
-import React from "react";
 
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => {
   // We need to filter out motion specific props to avoid React warnings
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filterProps = (props: any) => {
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       whileInView, initial, viewport, animate, exit, transition,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       variants, whileHover, whileTap, whileDrag, whileFocus,
       ...rest
     } = props;
@@ -19,13 +22,13 @@ vi.mock("framer-motion", () => {
 
   return {
     motion: {
-      div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
+      div: ({ children, ...props }: ComponentPropsWithoutRef<"div">) => (
         <div {...filterProps(props)}>{children}</div>
       ),
-      h2: ({ children, ...props }: React.ComponentPropsWithoutRef<"h2">) => (
+      h2: ({ children, ...props }: ComponentPropsWithoutRef<"h2">) => (
         <h2 {...filterProps(props)}>{children}</h2>
       ),
-      p: ({ children, ...props }: React.ComponentPropsWithoutRef<"p">) => (
+      p: ({ children, ...props }: ComponentPropsWithoutRef<"p">) => (
         <p {...filterProps(props)}>{children}</p>
       ),
     },
@@ -34,13 +37,13 @@ vi.mock("framer-motion", () => {
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
-  Mail: (props: React.ComponentPropsWithoutRef<"div">) => (
+  Mail: (props: ComponentPropsWithoutRef<"div">) => (
     <div data-testid="mail-icon" {...props} />
   ),
-  Share2: (props: React.ComponentPropsWithoutRef<"div">) => (
+  Share2: (props: ComponentPropsWithoutRef<"div">) => (
     <div data-testid="share2-icon" {...props} />
   ),
-  Send: (props: React.ComponentPropsWithoutRef<"div">) => (
+  Send: (props: ComponentPropsWithoutRef<"div">) => (
     <div data-testid="send-icon" {...props} />
   ),
 }));

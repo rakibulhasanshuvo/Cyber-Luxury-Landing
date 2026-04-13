@@ -1,15 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import Marquee, { companies } from "./Marquee";
 import { describe, test, expect, vi } from "vitest";
-import React from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => ({
   motion: {
-    span: ({ children, ...props }: React.ComponentPropsWithoutRef<"span">) => (
-      <span {...props}>{children}</span>
-    ),
-    div: ({ children, ...props }: React.ComponentPropsWithoutRef<"div">) => (
+    span: ({ children, ...props }: ComponentPropsWithoutRef<"span"> & { initial?: unknown; whileInView?: unknown; transition?: unknown }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { initial, whileInView, transition, ...rest } = props;
+      return <span {...rest}>{children}</span>;
+    },
+    div: ({ children, ...props }: ComponentPropsWithoutRef<"div">) => (
       <div {...props}>{children}</div>
     ),
   },
@@ -17,14 +19,14 @@ vi.mock("framer-motion", () => ({
 
 // Mock lucide-react to avoid icon rendering issues
 vi.mock("lucide-react", () => ({
-  Chrome: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  CreditCard: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  Car: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  Figma: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  Slack: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  ShoppingBag: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  Zap: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
-  Database: (props: React.ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  Chrome: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  CreditCard: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  Car: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  Figma: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  Slack: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  ShoppingBag: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  Zap: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
+  Database: (props: ComponentPropsWithoutRef<"div">) => <div data-testid="company-icon" {...props} />,
 }));
 
 describe("Marquee Component", () => {
