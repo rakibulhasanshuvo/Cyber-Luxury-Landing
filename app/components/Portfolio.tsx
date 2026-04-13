@@ -2,15 +2,19 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Github, ExternalLink, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+import deepLearningImage from "@/public/images/deep-learning.png";
+import financeAppImage from "@/public/images/finance-app.png";
+import ecommerceImage from "@/public/images/ecommerce.png";
 
 interface Project {
   title: string;
   tags: string[];
   desc: string;
-  image: string;
+  image: StaticImageData;
   link: string;
   github: string;
   drift: number;
@@ -22,7 +26,7 @@ const projects: Project[] = [
     title: "Deep Learning Platform",
     tags: ["React", "Next.js", "TypeScript", "Python"],
     desc: "A comprehensive suite of tools for data scientists and ML engineers to build and deploy models at scale with real-time telemetry.",
-    image: "/images/deep-learning.png",
+    image: deepLearningImage,
     link: "#",
     github: "#",
     drift: 0.03,
@@ -31,7 +35,7 @@ const projects: Project[] = [
     title: "Mobile Finance App",
     tags: ["React Native", "TypeScript", "GraphQL"],
     desc: "A cross-platform mobile application designed to simplify personal finance with automated budgeting and predictive spending insights.",
-    image: "/images/finance-app.png",
+    image: financeAppImage,
     link: "#",
     github: "#",
     drift: -0.025,
@@ -41,7 +45,7 @@ const projects: Project[] = [
     title: "E-commerce Storefront",
     tags: ["Next.js", "TypeScript", "Shopify API"],
     desc: "A high-performance headless commerce engine with server-side rendering, dynamic inventory, and a lightning-fast checkout flow.",
-    image: "/images/ecommerce.png",
+    image: ecommerceImage,
     link: "#",
     github: "#",
     drift: 0.02,
@@ -81,6 +85,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             src={project.image}
             alt={project.title}
             fill
+            placeholder="blur"
+            priority={index === 0}
             className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 group-hover:brightness-110"
             sizes="(max-width: 768px) 100vw, 60vw"
           />
