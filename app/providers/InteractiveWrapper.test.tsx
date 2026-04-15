@@ -79,8 +79,7 @@ describe("InteractiveWrapper", () => {
 
     // Some JSDOM versions auto-append "px" to unitless numbers assigned to style object, or React does it.
     // So we match either "0.75" or "0.75px"
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const scaleXValue = (progressBar?.style as any)?.scaleX || "";
+    const scaleXValue = (progressBar?.style as CSSStyleDeclaration & { scaleX?: string })?.scaleX || "";
     expect(scaleXValue.replace('px', '')).toBe("0.75");
   });
 
