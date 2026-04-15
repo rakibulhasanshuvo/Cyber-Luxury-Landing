@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { cn } from "./utils";
+import { cn, validateSafeUrl } from "./utils";
 
 describe("cn utility", () => {
   it("should merge basic string class names correctly", () => {
@@ -96,5 +96,57 @@ describe("cn utility", () => {
         { "hover:bg-green-500": true }
       )
     ).toBe("p-4 md:p-8 bg-blue-500 text-left hover:bg-green-500");
+  });
+});
+
+describe("validateSafeUrl utility", () => {
+  it("should allow safe https URLs", () => {
+    expect(validateSafeUrl("https://example.com")).toBe("https://example.com");
+    expect(validateSafeUrl("https://example.com/path?query=1")).toBe("https://example.com/path?query=1");
+  });
+
+  it("should allow safe http URLs", () => {
+    expect(validateSafeUrl("http://example.com")).toBe("http://example.com");
+  });
+
+  it("should allow safe mailto URLs", () => {
+    expect(validateSafeUrl("mailto:test@example.com")).toBe("mailto:test@example.com");
+  });
+
+  it("should allow safe tel URLs", () => {
+    expect(validateSafeUrl("tel:+1234567890")).toBe("tel:+1234567890");
+  });
+
+  it("should allow safe relative paths", () => {
+    expect(validateSafeUrl("/path/to/resource")).toBe("/path/to/resource");
+    expect(validateSafeUrl("/file.pdf")).toBe("/file.pdf");
+  });
+
+  it("should reject malicious javascript: URIs", () => {
+    expect(validateSafeUrl("javascript:alert('XSS')")).toBeUndefined();
+    expect(validateSafeUrl("  javascript:alert('XSS')  ")).toBeUndefined();
+    expect(validateSafeUrl("JAVASCRIPT:alert('XSS')")).toBeUndefined();
+  });
+
+  it("should reject malicious data: URIs", () => {
+    expect(validateSafeUrl("data:text/html,<script>alert(1)</script>")).toBeUndefined();
+  });
+
+  it("should reject malicious vbscript: URIs", () => {
+    expect(validateSafeUrl("vbscript:msgbox('XSS')")).toBeUndefined();
+  });
+
+  it("should reject protocol-relative URLs starting with //", () => {
+    expect(validateSafeUrl("//google.com")).toBeUndefined();
+  });
+
+  it("should handle undefined and empty inputs", () => {
+    expect(validateSafeUrl(undefined)).toBeUndefined();
+    expect(validateSafeUrl("")).toBeUndefined();
+    expect(validateSafeUrl("   ")).toBeUndefined();
+  });
+
+  it("should trim whitespace", () => {
+    expect(validateSafeUrl("  https://example.com  ")).toBe("https://example.com");
   });
 });
