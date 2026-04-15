@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useScroll, motion, AnimatePresence } from "framer-motion";
+import { throttle } from "@/lib/utils";
 
 export default function InteractiveWrapper({ children }: { children: React.ReactNode }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,16 +15,17 @@ export default function InteractiveWrapper({ children }: { children: React.React
     const timeout = setTimeout(() => setIsLoaded(true), 600);
     
     // Cursor Glow
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = throttle((e: MouseEvent) => {
       setCursorPos({ x: e.clientX, y: e.clientY });
       if (!isCursorMoving) setIsCursorMoving(true);
-    };
+    });
     
     window.addEventListener("mousemove", handleMouseMove);
     
     return () => {
       clearTimeout(timeout);
       window.removeEventListener("mousemove", handleMouseMove);
+      handleMouseMove.cancel();
     };
   }, [isCursorMoving]);
 
