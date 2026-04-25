@@ -3,11 +3,11 @@ import { throttle } from "./throttle";
 
 describe("throttle utility", () => {
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error Mocking global function for testing
     globalThis.requestAnimationFrame = vi.fn((cb: FrameRequestCallback) => {
       return setTimeout(() => cb(Date.now()), 16) as unknown as number;
     });
-    // @ts-ignore
+    // @ts-expect-error Mocking global function for testing
     globalThis.cancelAnimationFrame = vi.fn((id: number) => {
       clearTimeout(id as unknown as ReturnType<typeof setTimeout>);
     });
