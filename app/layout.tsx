@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import InteractiveWrapper from "./providers/InteractiveWrapper";
 import ScrollProgress from "./components/ScrollProgress";
@@ -10,10 +10,10 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
 });
 
-const spaceGrotesk = Space_Grotesk({
+const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased dark scroll-smooth`}
+      className={`${inter.variable} ${plusJakartaSans.variable} h-full antialiased dark scroll-smooth`}
       suppressHydrationWarning
     >
       <body
