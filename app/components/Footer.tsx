@@ -1,16 +1,10 @@
 "use client";
 
-import { Code, Twitter, Linkedin, Github, Dribbble } from "lucide-react";
+import { Code } from "lucide-react";
+import { socialLinks } from "./Footer.data";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
-  const socialLinks = [
-    { icon: Twitter, href: "https://twitter.com", name: "Twitter" },
-    { icon: Linkedin, href: "https://linkedin.com", name: "LinkedIn" },
-    { icon: Dribbble, href: "https://dribbble.com", name: "Dribbble" },
-    { icon: Github, href: "https://github.com", name: "GitHub" },
-  ];
 
   return (
     <footer className="py-24 border-t border-border-subtle/50 bg-bg-secondary/30 relative overflow-hidden">
