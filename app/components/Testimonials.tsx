@@ -6,7 +6,7 @@ import Image from "next/image";
 import { testimonials } from "./Testimonials.data";
 
 const REPEAT_COUNT = 4;
-const MARQUEE_TESTIMONIALS = Array.from({ length: REPEAT_COUNT }).flatMap(() => testimonials);
+const MARQUEE_TESTIMONIALS = Array(REPEAT_COUNT).fill(testimonials).flat();
 
 export default function Testimonials() {
   return (
