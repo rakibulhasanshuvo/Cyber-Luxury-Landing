@@ -22,7 +22,7 @@ const REPEAT_COUNT = 4;
  * while still avoiding unnecessary array allocations on every render to maintain
  * the ~19% performance improvement in micro-benchmarks.
  */
-const MARQUEE_COMPANIES = Array.from({ length: REPEAT_COUNT }).flatMap(() => companies);
+const MARQUEE_COMPANIES = Array(REPEAT_COUNT).fill(companies).flat();
 
 export default function Marquee() {
   return (
