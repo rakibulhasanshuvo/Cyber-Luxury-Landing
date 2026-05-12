@@ -2,6 +2,7 @@
 
 import { Code } from "lucide-react";
 import { socialLinks } from "./Footer.data";
+import { validateSafeUrl } from "@/lib/utils";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -32,7 +33,7 @@ export default function Footer() {
             {socialLinks.map((social) => (
               <a
                 key={social.name}
-                href={social.href}
+                href={validateSafeUrl(social.href)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border border-border-subtle flex items-center justify-center text-text-muted hover:text-white hover:bg-white/5 hover:border-accent-1 transition-all group/social"

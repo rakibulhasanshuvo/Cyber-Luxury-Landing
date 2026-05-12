@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from "f
 import { useRef, MouseEvent } from "react";
 import Image from "next/image";
 import { Github, ExternalLink, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, validateSafeUrl } from "@/lib/utils";
 
 export type PortfolioTag =
   | "React"
@@ -154,9 +154,9 @@ function BentoCard({ project, index }: { project: Project; index: number }) {
         </div>
 
         <div className="flex items-center gap-4 mt-8 pt-6 border-t border-white/[0.05]">
-          {project.github && project.github !== "#" && (
+          {project.github && project.github !== "#" && validateSafeUrl(project.github) && (
             <a
-              href={project.github}
+              href={validateSafeUrl(project.github)}
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-xl bg-white/5 border border-white/5 text-white hover:bg-white/10 hover:border-accent-1/30 hover:scale-105 transition-all"
@@ -165,9 +165,9 @@ function BentoCard({ project, index }: { project: Project; index: number }) {
               <Github className="w-5 h-5 text-accent-1" />
             </a>
           )}
-          {project.link && project.link !== "#" && (
+          {project.link && project.link !== "#" && validateSafeUrl(project.link) && (
             <a
-              href={project.link}
+              href={validateSafeUrl(project.link)}
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-xl bg-linear-to-br from-accent-1/20 to-accent-3/20 border border-accent-1/30 text-white hover:from-accent-1/30 hover:to-accent-3/30 hover:border-accent-1/50 hover:scale-105 transition-all"

@@ -14,8 +14,8 @@ export function validateSafeUrl(url: string | undefined): string | undefined {
 
   const normalized = url.trim();
 
-  // Allow safe relative paths (starting with / but not //)
-  if (normalized.startsWith("/") && !normalized.startsWith("//")) {
+  // Allow safe relative paths (starting with / but not //) or fragment identifiers
+  if ((normalized.startsWith("/") && !normalized.startsWith("//")) || normalized.startsWith("#")) {
     return normalized;
   }
 
