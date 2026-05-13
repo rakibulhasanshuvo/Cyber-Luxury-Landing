@@ -62,11 +62,11 @@ describe("Contact Component", () => {
     expect(screen.getByText("I'm currently taking on new projects.")).toBeDefined();
   });
 
-  test("renders contact links with correct attributes", () => {
+  test("renders contact links with correct attributes", async () => {
     render(<Contact />);
 
-    // Email link
-    const emailLinks = screen.getAllByRole("link", { name: /hello@designer\.com/i });
+    // Email link (needs to wait for useEffect)
+    const emailLinks = await screen.findAllByRole("link", { name: /hello@designer\.com/i });
     expect(emailLinks.length).toBeGreaterThan(0);
     expect(emailLinks[0].getAttribute("href")).toBe("mailto:hello@designer.com");
 
