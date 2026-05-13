@@ -27,3 +27,24 @@ export function validateSafeUrl(url: string | undefined): string | undefined {
 
   return undefined;
 }
+
+/**
+ * Simple obfuscation to prevent basic scrapers from finding strings in the source.
+ * This is not secure encryption, just a deterrent for simple automated bots.
+ */
+export function obfuscate(str: string): string {
+  return str
+    .split("")
+    .map((char) => String.fromCharCode(char.charCodeAt(0) + 1))
+    .join("");
+}
+
+/**
+ * Deobfuscates a string that was obfuscated with the obfuscate function.
+ */
+export function deobfuscate(str: string): string {
+  return str
+    .split("")
+    .map((char) => String.fromCharCode(char.charCodeAt(0) - 1))
+    .join("");
+}
