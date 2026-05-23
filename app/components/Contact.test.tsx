@@ -8,9 +8,13 @@ import React from "react";
 // Mock framer-motion to avoid animation-related issues during testing
 vi.mock("framer-motion", () => {
   // We need to filter out motion specific props to avoid React warnings
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filterProps = (props: any) => {
+
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       whileInView, initial, viewport, animate, exit, transition,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       variants, whileHover, whileTap, whileDrag, whileFocus,
       ...rest
     } = props;
@@ -58,11 +62,11 @@ describe("Contact Component", () => {
     expect(screen.getByText("I'm currently taking on new projects.")).toBeDefined();
   });
 
-  test("renders contact links with correct attributes", () => {
+  test("renders contact links with correct attributes", async () => {
     render(<Contact />);
 
-    // Email link
-    const emailLinks = screen.getAllByRole("link", { name: /hello@designer\.com/i });
+    // Email link (needs to wait for useEffect)
+    const emailLinks = await screen.findAllByRole("link", { name: /hello@designer\.com/i });
     expect(emailLinks.length).toBeGreaterThan(0);
     expect(emailLinks[0].getAttribute("href")).toBe("mailto:hello@designer.com");
 

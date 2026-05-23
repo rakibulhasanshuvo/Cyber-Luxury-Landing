@@ -2,8 +2,19 @@
 
 import { motion } from "framer-motion";
 import { Mail, Share2, Send } from "lucide-react";
+import { useState, useEffect } from "react";
+import { deobfuscate } from "@/lib/utils";
+
+const OBFUSCATED_EMAIL = "ifmmpAeftjghoefs/dpn";
 
 export default function Contact() {
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const rawEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "";
+    setEmail(rawEmail || deobfuscate(OBFUSCATED_EMAIL));
+  }, []);
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-accent-1/5 blur-[150px] rounded-full pointer-events-none" />
@@ -43,11 +54,11 @@ export default function Contact() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-20">
             <a
-              href="mailto:hello@designer.com"
+              href={email ? `mailto:${email}` : "#"}
               className="px-8 py-4 rounded-xl bg-white/5 border border-border-glass text-text-primary font-bold flex items-center gap-3 hover:bg-white/10 hover:border-accent-1 transition-all hover:translate-y-[-2px] group"
             >
               <Mail className="w-5 h-5 text-accent-1 group-hover:scale-110 transition-transform" />
-              hello@designer.com
+              {email || "Loading..."}
             </a>
             <a
               href="https://linkedin.com"
@@ -70,7 +81,7 @@ export default function Contact() {
         >
           <div className="absolute inset-0 bg-linear-to-br from-accent-1/5 via-transparent to-accent-3/5" />
           <div className="relative z-10">
-            <form className="flex flex-col gap-8">
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="flex flex-col gap-3">
                   <label htmlFor="name" className="text-xs font-black uppercase tracking-widest text-text-muted">Full Name</label>

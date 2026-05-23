@@ -1,16 +1,11 @@
 "use client";
 
-import { Code, Twitter, Linkedin, Github, Dribbble } from "lucide-react";
+import { Code } from "lucide-react";
+import { socialLinks } from "./Footer.data";
+import { validateSafeUrl } from "@/lib/utils";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
-  const socialLinks = [
-    { icon: Twitter, href: "https://twitter.com", name: "Twitter" },
-    { icon: Linkedin, href: "https://linkedin.com", name: "LinkedIn" },
-    { icon: Dribbble, href: "https://dribbble.com", name: "Dribbble" },
-    { icon: Github, href: "https://github.com", name: "GitHub" },
-  ];
 
   return (
     <footer className="py-24 border-t border-border-subtle/50 bg-bg-secondary/30 relative overflow-hidden">
@@ -38,7 +33,7 @@ export default function Footer() {
             {socialLinks.map((social) => (
               <a
                 key={social.name}
-                href={social.href}
+                href={validateSafeUrl(social.href)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-full border border-border-subtle flex items-center justify-center text-text-muted hover:text-white hover:bg-white/5 hover:border-accent-1 transition-all group/social"
